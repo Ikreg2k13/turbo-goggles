@@ -42,7 +42,7 @@ public class Main {
 	public void Init(FMLInitializationEvent event) {
 		
 		proxy.registerRenders();
-		EntityCreator.createEntity(EntityTestCar.class, new RenderTestCar(), "TestCar", EnumCreatureType.CREATURE, 0xFF00FB, 0xD69D00, true);
+		//EntityCreator.createEntity(EntityTestCar.class, new RenderTestCar(), "TestCar", EnumCreatureType.CREATURE, 0xFF00FB, 0xD69D00, true);
 		//EntityRegistry.registerModEntity(EntityTestCar.class, "TestCar", 0, this, 0, 1, false, 3, 2);
 	}
 

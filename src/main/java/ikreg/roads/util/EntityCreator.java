@@ -9,7 +9,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class EntityCreator {
-	
+/*
 	public static void createEntity(Class entityClass, Render render, String entityName, EnumCreatureType type, int solidColor, int spotColor, boolean hasSpawnEgg) {
 		int id = EntityRegistry.findGlobalUniqueEntityId();
 		
@@ -21,5 +21,6 @@ public class EntityCreator {
 			EntityList.entityEggs.put(entityName, new EntityList.EntityEggInfo(entityName, solidColor, spotColor));
 		}
 	}
-
+*/
 }
+

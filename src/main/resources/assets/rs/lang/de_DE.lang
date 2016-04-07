@@ -1,0 +1,9 @@
+tile.asphalt.name=Asphalt
+tile.stripline.name=Mittelstreifen
+tile.lcross.name=L-Kreuzung
+tile.tcross.name=T-Kreuzung
+tile.xcross.name=X-Kreuzung
+tile.yellowstripline.name=Gelber Mittelstreifen
+tile.yellowlcross.name=Gelbe L-Kreuzung
+tile.yellowtcross.name=Gelbe T-Kreuzung
+tile.yellowxcross.name=Gelbe X-Kreuzung

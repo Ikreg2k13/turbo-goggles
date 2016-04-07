@@ -1,0 +1,15 @@
+{
+    "variants": {
+        "facing=north,type=none": {"model": "rs:yellowstandard_tcross"},
+        "facing=north,type=down": {"model": "rs:yellowstandard_tcross_ext"},
+        
+        "facing=south,type=none": {"model": "rs:yellowstandard_tcross", "y": 180 },
+        "facing=south,type=down": {"model": "rs:yellowstandard_tcross_ext", "y": 180 },        
+        
+        "facing=east,type=none": {"model": "rs:yellowstandard_tcross", "y": 90 },
+        "facing=east,type=down": {"model": "rs:yellowstandard_tcross_ext", "y": 90 },        
+        
+        "facing=west,type=none": {"model": "rs:yellowstandard_tcross", "y": 270},
+        "facing=west,type=down": {"model": "rs:yellowstandard_tcross_ext", "y": 270}    
+    }
+}

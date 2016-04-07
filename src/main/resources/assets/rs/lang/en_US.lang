@@ -1,0 +1,13 @@
+tile.asphalt.name=Asphalt
+tile.stripline.name=Center line
+tile.tcross.name=T-Cross line
+tile.lcross.name=L-Cross line
+tile.xcross.name=X-Cross line
+tile.yellowstripline.name=Yellow Center line
+tile.yellowlcross.name=Yellow L-Cross line
+tile.yellowtcross.name=Yellow T-Cross line
+tile.yellowxcross.name=Yellow X-Cross line
+
+itemGroup.tabRoads=Roadsystems
+
+entity.TestCar.name=Test Car

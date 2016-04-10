@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemCarSpawner extends Item {
 
 	public ItemCarSpawner() {
-		GameRegistry.registerItem(this, getName());
+		//GameRegistry.registerItem(this, getName());
 		setUnlocalizedName(getName());
 	}
 

@@ -1,5 +1,6 @@
 package ikreg.roads.init;
 
+import ikreg.roads.Main;
 import ikreg.roads.Reference;
 import ikreg.roads.item.ItemCarSpawner;
 import net.minecraft.client.Minecraft;
@@ -7,25 +8,26 @@ import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class Items {
 	
-	public static ItemCarSpawner carSpawner = new ItemCarSpawner();
+	public static Item carSpawner;
 
 	public static void init(FMLPreInitializationEvent event) {
 		if(event.getSide() == Side.CLIENT) {
-			registerRenderer(carSpawner, "carSpawner");
+			carSpawner = new ItemCarSpawner().setCreativeTab(Main.tabRoads);
 		}
 	}
 	public static void register() {
 		
-		//GameRegistry.registerItem(test_item, test_item.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(carSpawner, carSpawner.getUnlocalizedName().substring(5));
 	}
 	
 	public static void registerRenders() {
 	
-		//registerRender(test_item);
+		registerRender(carSpawner);
 	}
 	
 	public static void registerRender(Item item) {

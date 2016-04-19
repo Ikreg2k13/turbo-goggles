@@ -25,10 +25,14 @@ public class ItemCarSpawner extends Item {
 	
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		EntityTestCar newAnt = new EntityTestCar(worldIn);
-		newAnt.setLocationAndAngles(pos.getX() + 0.5d, pos.getY() + 1.1d, pos.getZ() + 0.5d, 0F, 0F);
-		worldIn.spawnEntityInWorld(newAnt);
-		return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+		if(!worldIn.isRemote) {
+			EntityTestCar newAnt = new EntityTestCar(worldIn);
+			newAnt.setLocationAndAngles(pos.getX() + 0.5d, pos.getY() + 1.1d, pos.getZ() + 0.5d, 0F, 0F);
+			worldIn.spawnEntityInWorld(newAnt);
+			return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+		}
+		else return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
 	}
-
 }
+
+

@@ -1,7 +1,11 @@
 package ikreg.roads.entity;
 
 import com.google.common.collect.Lists;
+
+import ikreg.roads.item.ItemCarSpawner;
+
 import java.util.List;
+
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
@@ -39,7 +43,7 @@ public class EntityTestCar extends Entity
     private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityTestCar.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.<Integer>createKey(EntityTestCar.class, DataSerializers.VARINT);
     private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float>createKey(EntityTestCar.class, DataSerializers.FLOAT);
-    private static final DataParameter<Integer> BOAT_TYPE = EntityDataManager.<Integer>createKey(EntityTestCar.class, DataSerializers.VARINT);
+    //private static final DataParameter<Integer> BOAT_TYPE = EntityDataManager.<Integer>createKey(EntityTestCar.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean>[] field_184468_e = new DataParameter[] {EntityDataManager.createKey(EntityTestCar.class, DataSerializers.BOOLEAN), EntityDataManager.createKey(EntityTestCar.class, DataSerializers.BOOLEAN)};
     private float[] field_184470_f;
     /** How much of current speed to retain. Value zero to one. */
@@ -65,13 +69,15 @@ public class EntityTestCar extends Entity
     private EntityTestCar.Status status;
     private EntityTestCar.Status previousStatus;
     private double field_184473_aH;
+    
+    private Item carSpawner = new ItemCarSpawner();
 
     public EntityTestCar(World worldIn)
     {
         super(worldIn);
         this.field_184470_f = new float[2];
         this.preventEntitySpawning = true;
-        this.setSize(1.375F, 0.5625F);
+        this.setSize(1.375F, 1F);
     }
 
     public EntityTestCar(World worldIn, double x, double y, double z)
@@ -100,7 +106,7 @@ public class EntityTestCar extends Entity
         this.dataWatcher.register(TIME_SINCE_HIT, Integer.valueOf(0));
         this.dataWatcher.register(FORWARD_DIRECTION, Integer.valueOf(1));
         this.dataWatcher.register(DAMAGE_TAKEN, Float.valueOf(0.0F));
-        this.dataWatcher.register(BOAT_TYPE, Integer.valueOf(EntityTestCar.Type.OAK.ordinal()));
+        //this.dataWatcher.register(BOAT_TYPE, Integer.valueOf(EntityTestCar.Type.OAK.ordinal()));
 
         for (int i = 0; i < field_184468_e.length; ++i)
         {
@@ -168,7 +174,7 @@ public class EntityTestCar extends Entity
                 {
                     if (!flag && this.worldObj.getGameRules().getBoolean("doEntityDrops"))
                     {
-                        this.dropItemWithOffset(this.getItemBoat(), 1, 0.0F);
+                        this.dropItem(carSpawner, 1);
                     }
 
                     this.setDead();
@@ -200,27 +206,6 @@ public class EntityTestCar extends Entity
             super.applyEntityCollision(entityIn);
         }
     }
-
-    public Item getItemBoat()
-    {
-        switch (this.getCarType())
-        {
-            case OAK:
-            default:
-                return Items.boat;
-            case SPRUCE:
-                return Items.spruce_boat;
-            case BIRCH:
-                return Items.birch_boat;
-            case JUNGLE:
-                return Items.jungle_boat;
-            case ACACIA:
-                return Items.acacia_boat;
-            case DARK_OAK:
-                return Items.dark_oak_boat;
-        }
-    }
-
     /**
      * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
      */
@@ -812,7 +797,7 @@ public class EntityTestCar extends Entity
      */
     protected void writeEntityToNBT(NBTTagCompound tagCompound)
     {
-        tagCompound.setString("Type", this.getCarType().getName());
+        //tagCompound.setString("Type", this.getCarType().getName());
     }
 
     /**
@@ -820,10 +805,10 @@ public class EntityTestCar extends Entity
      */
     protected void readEntityFromNBT(NBTTagCompound tagCompund)
     {
-        if (tagCompund.hasKey("Type", 8))
-        {
-            this.setCarType(EntityTestCar.Type.getTypeFromString(tagCompund.getString("Type")));
-        }
+        //if (tagCompund.hasKey("Type", 8))
+        //{
+        //    this.setCarType(EntityTestCar.Type.getTypeFromString(tagCompund.getString("Type")));
+        //}
     }
 
     public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand)
@@ -862,12 +847,12 @@ public class EntityTestCar extends Entity
                         {
                             for (int i = 0; i < 3; ++i)
                             {
-                                this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.planks), 1, this.getCarType().getMetadata()), 0.0F);
+                                this.dropItem(carSpawner, 1);
                             }
 
                             for (int j = 0; j < 2; ++j)
                             {
-                                this.dropItemWithOffset(Items.stick, 1, 0.0F);
+                                this.dropItem(carSpawner, 1);
                             }
                         }
                     }
@@ -934,7 +919,7 @@ public class EntityTestCar extends Entity
     {
         return ((Integer)this.dataWatcher.get(FORWARD_DIRECTION)).intValue();
     }
-
+    /*
     public void setCarType(EntityTestCar.Type boatType)
     {
         this.dataWatcher.set(BOAT_TYPE, Integer.valueOf(boatType.ordinal()));
@@ -944,7 +929,7 @@ public class EntityTestCar extends Entity
     {
         return EntityTestCar.Type.byId(((Integer)this.dataWatcher.get(BOAT_TYPE)).intValue());
     }
-
+	*/
     protected boolean canFitPassenger(Entity passenger)
     {
         return this.getPassengers().size() < 2;
@@ -977,7 +962,7 @@ public class EntityTestCar extends Entity
         ON_LAND,
         IN_AIR;
     }
-
+    /*
     public static enum Type
     {
         OAK(BlockPlanks.EnumType.OAK.getMetadata(), "oak"),
@@ -995,7 +980,7 @@ public class EntityTestCar extends Entity
             this.name = nameIn;
             this.metadata = metadataIn;
         }
-
+        
         public String getName()
         {
             return this.name;
@@ -1005,15 +990,15 @@ public class EntityTestCar extends Entity
         {
             return this.metadata;
         }
-
+        
         public String toString()
         {
             return this.name;
         }
-
-        /**
-         * Get a boat type by it's enum ordinal
-         */
+		
+        
+         //Get a boat type by it's enum ordinal
+         
         public static EntityTestCar.Type byId(int id)
         {
             if (id < 0 || id >= values().length)
@@ -1037,4 +1022,5 @@ public class EntityTestCar extends Entity
             return values()[0];
         }
     }
+*/
 }

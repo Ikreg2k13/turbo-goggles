@@ -6,6 +6,10 @@ import ikreg.roads.entity.EntityTestCar;
 import ikreg.roads.init.Blocks;
 import ikreg.roads.init.Items;
 import ikreg.roads.proxy.CommonProxy;
+import ikreg.roads.render.RenderTestCar;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -41,7 +45,7 @@ public class Main {
 		//EntityCreator.createEntity(EntityTestCar.class, new RenderTestCar(), "TestCar", EnumCreatureType.CREATURE, 0xFF00FB, 0xD69D00, true);
 		//EntityRegistry.registerModEntity(EntityTestCar.class, "TestCar", 0, this, 0, 1, false, 3, 2);
 	
-		registerEntity(EntityTestCar.class, "Car");
+		registerEntity(EntityTestCar.class, "Car", new RenderTestCar(Minecraft.getMinecraft().getRenderManager()));
 	}
 
 	@EventHandler
@@ -50,7 +54,7 @@ public class Main {
 	}
 	
 	//FIXME: Deprecated API usage
-	public static void registerEntity(Class entityClass, String name) {
+	public static void registerEntity(Class entityClass, String name, Render render) {
 		int entityID = EntityRegistry.findGlobalUniqueEntityId();
 		long seed = name.hashCode();
 		Random rand = new Random(seed);
@@ -59,5 +63,6 @@ public class Main {
 
 		EntityRegistry.registerGlobalEntityID(entityClass, name, entityID);
 		EntityRegistry.registerModEntity(entityClass, name, entityID, instance, 64, 1, true);
+		RenderingRegistry.registerEntityRenderingHandler(entityClass, render);
 	}
 }
